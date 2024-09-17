@@ -21,18 +21,24 @@ public class User implements Serializable {
     private String userName;
     private String password;
     private Date datenaissance;
+    @JsonIgnore
     private Float weight;
+    @JsonIgnore
     private Float hight;
     @Enumerated(EnumType.STRING)
+    @JsonIgnore
     private Objectif objectif;
+    @JsonIgnore
     private Float imc;
-
+    private String  city;
+private int rating;
+    private String number;
 
 
 
     //enumeration private Objectif //
 
-
+@JsonIgnore
     @OneToOne(mappedBy = "user")
     private Abonnement abonnement;
 
@@ -41,7 +47,9 @@ public class User implements Serializable {
     Role role;
 
     @OneToOne
+    @JsonIgnore
     private NutritionalGoal nutritionalGoal;
+    @JsonIgnore
     @OneToOne
     private Fidelity fidelity;
 
@@ -50,14 +58,14 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "user")
     public List<Orderr> orderrs;
 
-
+@JsonIgnore
     @OneToMany(mappedBy = "userworkout")
     private  List<FollowedProgram> followedProgramsuser;
 
 
 //    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
   //  private List<Post> posts;
-
+@JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Commentaire> commentaires;
 

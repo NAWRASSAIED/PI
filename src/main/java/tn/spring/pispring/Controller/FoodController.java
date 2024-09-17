@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -14,7 +15,9 @@ import tn.spring.pispring.Repositories.FoodRepo;
 import tn.spring.pispring.Services.FoodService;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @AllArgsConstructor
@@ -72,12 +75,16 @@ public class FoodController {
         }
     }
     @PostMapping("/import/excel")
-    public String importExcel(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<Map<String, String>> importExcel(@RequestParam("file") MultipartFile file) {
         try {
             foodInterface.importFromExcel(file);
-            return "Excel file uploaded successfully!";
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Excel file uploaded successfully!");
+            return ResponseEntity.ok(response);
         } catch (IOException e) {
-            return "Failed to upload Excel file: " + e.getMessage();
+            Map<String, String> response = new HashMap<>();
+            response.put("error", "Failed to upload Excel file: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
     }
 
