@@ -1,0 +1,57 @@
+.container {
+    width: 500px; /* Largeur du formulaire */
+            padding: 20px; /* Espacement interne du formulaire */
+            border: 1px solid #ddd; /* Bordure du formulaire */
+            border-radius: 5px; /* Coins arrondis */
+            margin-left: 500px;
+            margin-top: 20px;
+            margin-bottom: 100px;
+           
+}
+
+/* Centrer le titre */
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    margin-left: 250px;
+    margin-top: 30px;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 30px; /* Espacement en bas du titre */
+}
+
+/* Centrer le bouton "Add" */
+.btn-success {
+    display: block; /* Faire du bouton un élément de bloc */
+    margin: 0 auto; /* Centrer horizontalement */
+    margin-top: 20px; /* Espacement en haut du bouton */
+}
+
+/* Styles pour le reste de la page */
+.layout-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.layout-container {
+    display: flex;
+    flex-grow: 1; /* Permet au conteneur de s'étendre pour remplir l'espace disponible */
+}
+
+.layout-page {
+    flex-grow: 1; /* Permet au contenu de remplir l'espace disponible */
+}
+
+.app-navbar-back {
+    /* Styles pour positionner le composant navbar en haut de son conteneur parent */
+    order: -1; /* Pour placer le composant navbar en premier dans l'ordre d'affichage */
+    position: sticky;
+    top: 0;
+    z-index: 1000; /* Assure que le navbar reste au-dessus des autres éléments */
+    background-color: #fff; /* Vous pouvez ajuster la couleur selon votre design */
+    width: 100%; /* Assure que le navbar occupe toute la largeur */
+}
+
+.app-footer-back {
+    /* Styles pour positionner le composant footer en bas de la page */
+   margin: 50px;
+}

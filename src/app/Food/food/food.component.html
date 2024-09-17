@@ -13,8 +13,15 @@
         <app-navbar-back></app-navbar-back>
 
         <div class="list">
+          <div class="button-container">
+            <button mat-raised-button (click)="openAddFoodModal()">
+              <i class="fas fa-file-upload"></i> Add Food <!-- Utilisation de l'icône d'ajout de fichier -->
+            </button>
+          </div>
+          
+          
+          
           <h2 style="text-align: center; margin-left: 250px;">List of Foods</h2>
-
 
           <!-- Champ de recherche -->
           <div class="search-field">
@@ -27,36 +34,61 @@
           <div class="data-table-food">
             <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
               <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
-                <th mat-header-cell *matHeaderCellDef> {{ column }} </th>
-                <th mat-header-cell *matHeaderCellDef> {{ column }} </th>
-<td mat-cell *matCellDef="let food">
-  <ng-container *ngIf="column !== 'actions'; else actionsColumn">
-    {{ food[column] }}
-  </ng-container>
-  <ng-template #actionsColumn>
-    <button mat-icon-button *ngIf="column === 'actions'" [routerLink]="['/updateFood', food.idFood]">
-      <mat-icon>edit</mat-icon>
-    </button>
-    <button mat-icon-button *ngIf="column === 'actions'" (click)="deleteFood(food)">
-      <mat-icon>delete</mat-icon>
-    </button>
-
-  </ng-template>
-
-</td>
-
+              
+                  <th mat-header-cell *matHeaderCellDef (click)="sort(column)">
+                    {{ column }}
+                    <mat-icon *ngIf="selectedColumn === column && isAscending">arrow_drop_up</mat-icon>
+                    <mat-icon *ngIf="selectedColumn === column && !isAscending">arrow_drop_down</mat-icon>
+                  </th>
+             
+                
+                  <!-- Reste du code -->
+              
+                
+                <td mat-cell *matCellDef="let food">
+                  <ng-container *ngIf="column !== 'actions'; else actionsColumn">
+                    {{ food[column] }}
+                  </ng-container>
+                  <ng-template #actionsColumn>
+                    <button mat-icon-button *ngIf="column === 'actions'" [routerLink]="['/updateFood', food.idFood]">
+                      <mat-icon>edit</mat-icon>
+                    </button>
+                    <button mat-icon-button *ngIf="column === 'actions'" (click)="deleteFood(food)">
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                  </ng-template>
+                </td>
               </ng-container>
               <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
               <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
-            <div class="button-container">
-                <button type="button" [routerLink]="['/addFood']">
-                  <i class="fas fa-plus"></i> Add Food
-                </button>
-              </div>
+
+            <!-- Pagination -->
+            <mat-paginator [length]="dataSource.data.length"
+                           [pageSizeOptions]="[3, 6, 10, 100]"
+                           showFirstLastButtons>
+            </mat-paginator>
           </div>
         </div>
       </div>
+    </div>
+  </div>
+  <div id="addFoodModal" class="modal">
+    <div class="modal-content">
+      <span class="close" (click)="closeAddFoodModal()">&times;</span>
+      <h2>Add Food</h2>
+      <!-- Formulaire "Add Food" -->
+     <!-- Partie du formulaire que vous souhaitez afficher dans le modal -->
+     <div class="container">
+      <h2>Add Food</h2>
+      <div class="form-container">
+        <label for="fileInput" class="file-label">Select Excel File:</label>
+        <input id="fileInput" type="file" (change)="onFileSelected($event)">
+        <span *ngIf="selectedFileName">{{ selectedFileName }}</span>
+      </div>
+    </div>
+    
+
     </div>
   </div>
 
@@ -64,4 +96,8 @@
 </body>
 
 </html>
+
+
+
+
 

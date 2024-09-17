@@ -1,78 +1,135 @@
 .layout-wrapper {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .layout-container {
-    display: flex;
-    flex-grow: 1; /* Permet au conteneur de s'étendre pour remplir l'espace disponible */
+  display: flex;
+  flex-grow: 1; /* Permet au conteneur de s'étendre pour remplir l'espace disponible */
 }
 
 .layout-page {
-    flex-grow: 1; /* Permet au contenu de remplir l'espace disponible */
+  flex-grow: 1; /* Permet au contenu de remplir l'espace disponible */
 }
 
 .app-navbar-back {
-    /* Styles pour positionner le composant navbar en haut de son conteneur parent */
-    order: -1; /* Pour placer le composant navbar en premier dans l'ordre d'affichage */
-    position: sticky;
-    top: 0;
-    z-index: 1000; /* Assure que le navbar reste au-dessus des autres éléments */
-    background-color: #fff; /* Vous pouvez ajuster la couleur selon votre design */
-    width: 100%;
-     /* Assure que le navbar occupe toute la largeur */
+  /* Styles pour positionner le composant navbar en haut de son conteneur parent */
+  order: -1; /* Pour placer le composant navbar en premier dans l'ordre d'affichage */
+  position: sticky;
+  top: 0;
+  z-index: 1000; /* Assure que le navbar reste au-dessus des autres éléments */
+  background-color: #fff; /* Vous pouvez ajuster la couleur selon votre design */
+  width: 100%;
+   /* Assure que le navbar occupe toute la largeur */
 }
 .list{
-  margin-bottom: 300px;
+margin-bottom: 300px;
 }
 
 .data-table-food {
-    max-width: 300px;
-    margin-left: 350px; /* Définir une largeur maximale pour la table */
-  }
-  
-  .data-table-food table {
-    border-collapse: collapse; /* Fusionner les bordures des cellules */
-    width: 100%; /* Largeur de la table */
-  }
-  
-  .data-table-food th,
-  .data-table-food td {
-    padding: 4px; /* Réduire l'espacement interne des cellules */
-    border: 1px solid #ddd; /* Bordures des cellules */
-    text-align: left; /* Alignement du texte à gauche */
-  }
- 
+  max-width: 300px;
+  margin-left: 350px; /* Définir une largeur maximale pour la table */
+}
+
+.data-table-food table {
+  border-collapse: collapse; /* Fusionner les bordures des cellules */
+  width: 100%; /* Largeur de la table */
+}
+
+.data-table-food th,
+.data-table-food td {
+  padding: 4px; /* Réduire l'espacement interne des cellules */
+  border: 1px solid #ddd; /* Bordures des cellules */
+  text-align: left; /* Alignement du texte à gauche */
+}
+
 
 
 .button-container {
-  text-align: right; /* Alignement du texte à droite */
-  margin-bottom: 20px; /* Espacement en bas du bouton */
-  margin-right: 150px;
+text-align: right; /* Alignement du texte à droite */
+margin-bottom: 20px; /* Espacement en bas du bouton */
+margin-right: 150px;
 }
 
 .button-container {
-  text-align: right; /* Alignement du texte à droite */
-  margin-bottom: 20px; /* Espacement en bas du bouton */
+text-align: right; /* Alignement du texte à droite */
+margin-bottom: 0px; /* Espacement en bas du bouton */
 }
 
 .button-container button {
-  background-color: #28a745; /* Utilisation de la même couleur de fond que le bouton du formulaire */
-  color: #fff; /* Couleur du texte du bouton */
-  border: none; /* Supprimer la bordure */
-  padding: 10px 20px; /* Espacement interne du bouton */
-  border-radius: 5px; /* Coins arrondis */
-  cursor: pointer; /* Curseur pointeur au survol */
-  transition: background-color 0.3s ease;
-  margin-left: 950px; 
-  margin-top: 10px;
-  width: 150px;/* Transition fluide de la couleur de fond */
+background-color: #28a745; /* Utilisation de la même couleur de fond que le bouton du formulaire */
+color: #fff; /* Couleur du texte du bouton */
+border: none; /* Supprimer la bordure */
+padding: 10px 20px; /* Espacement interne du bouton */
+border-radius: 5px; /* Coins arrondis */
+cursor: pointer; /* Curseur pointeur au survol */
+transition: background-color 0.3s ease;
+margin-left: 950px; 
+margin-top: 10px;
+width: 150px;/* Transition fluide de la couleur de fond */
 }
 
 .button-container button:hover {
-  background-color: #218838; /* Légèrement plus foncé au survol pour indiquer l'interaction */
+background-color: #218838; /* Légèrement plus foncé au survol pour indiquer l'interaction */
 }
 .search-field{
-  margin-left: 350px;
-  
+margin-left: 350px;
+
+}
+/* Style pour le modal */
+.modal {
+display: none; /* Par défaut, le modal est caché */
+position: fixed;
+z-index: 1;
+left: 0;
+top: 0;
+width: 100%;
+height: 100%;
+overflow: auto;
+background-color: rgba(0,0,0,0.4); 
+margin-left: 200px
+/* Arrière-plan semi-transparent */
+}
+
+.modal-content {
+background-color: #fefefe;
+margin: 15% auto;
+padding: 20px;
+border: 1px solid #888;
+width: 500px;
+}
+
+.close {
+color: #aaa;
+float: right;
+font-size: 28px;
+font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+color: black;
+text-decoration: none;
+cursor: pointer;
+}
+/* Style pour le bouton "Choisir un fichier" */
+#fileInput {
+display: none; /* Cache le champ de sélection de fichier par défaut */
+}
+
+.custom-file-upload {
+border: 1px solid #ccc;
+display: inline-block;
+padding: 6px 12px;
+cursor: pointer;
+background-color:#28a745; /* Couleur de fond du bouton */
+color: white; /* Couleur du texte du bouton */
+border-radius:2cap;
+}
+
+.custom-file-upload:hover {
+background-color: #e0e0e0;
+color: #28a745;
+border-radius:2cap;
+border-color:  #28a745; /* Couleur de fond du bouton au survol */
 }

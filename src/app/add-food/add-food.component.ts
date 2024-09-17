@@ -1,55 +1,56 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Food } from '../models/Food';
+import { Component } from '@angular/core';
 import { FoodService } from '../services/food.service';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-add-food',
   templateUrl: './add-food.component.html',
   styleUrls: ['./add-food.component.css']
 })
-export class AddFoodComponent implements OnInit {
-  foodForm!: FormGroup; // Utilisation de l'initialisation par défaut avec le ! après le type
-
-  constructor(private fb: FormBuilder, private foodService: FoodService) { }
-
-  ngOnInit(): void {
-    this.foodForm = this.fb.group({
-      namefood: ['', [Validators.required, Validators.maxLength(100)]], // Max length of 100 characters
-      calories_per_serving: ['', [Validators.required, Validators.min(0)]], // Must be a positive number
-      protein_per_serving: ['', [Validators.required, Validators.min(0)]], // Must be a positive number
-      carbohydrates_per_Serving: ['', [Validators.required, Validators.min(0)]], // Must be a positive number
-      fat_per_Serving: ['', [Validators.required, Validators.min(0)]], // Must be a positive number
-      fiber_per_Serving: ['', [Validators.required, Validators.min(0)]], // Must be a positive number
-      vitamins_per_Serving: ['', Validators.required], // Required field
-      minerals_per_Serving: ['', Validators.required], // Required field
-      nuttrack: ['']
-    });
+export class AddFoodComponent {
+  constructor(private foodService: FoodService) { }
+ selectedFileName: string = '';
+  onFileSelected(event: any): void {
+    const selectedFile = event.target.files[0] as File;
+    this.selectedFileName = selectedFile.name; // Update the selectedFileName variable
+    this.importExcel(selectedFile);
   }
 
-  addFood(): void {
-    if (this.foodForm.valid) {
-      const newFood: Food = this.foodForm.value;
-      this.foodService.addFood(newFood).subscribe(
-        () => {
-          console.log('Food added successfully');
-          alert('Food added successfully.'); // Afficher une alerte lorsque l'ajout est réussi
-          this.foodForm.reset();
+  importExcel(file: File): void {
+    if (file) {
+      this.foodService.importExcel(file).subscribe(
+        (response: HttpResponse<any>) => {
+          console.log('Response from server:', response);
+          if (response && response.body && response.body.message) {
+            alert(response.body.message);
+          } 
         },
-        (error: any) => {
-          console.error('Error adding food:', error);
-          alert('Error adding food. Please try again.'); // Afficher une alerte en cas d'erreur
+        (error: HttpErrorResponse) => {
+          console.error('Failed to upload Excel file:', error);
+          if (error.error && error.error.message) {
+            alert('Failed to upload Excel file: ' + error.error.message);
+          } else {
+            alert('An unexpected error occurred. Please try again later.');
+          }
         }
       );
     } else {
-      alert('Please fill out all required fields and ensure that input values are valid.');
+      alert('Please select a file to upload.');
     }
   }
 
-  cancelAdd(): void {
-    this.foodForm.reset();
-  }
+
 }
+
+
+
+
+
+
+
+
+
+
 
 
 

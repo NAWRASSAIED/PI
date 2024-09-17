@@ -7,50 +7,24 @@
         <app-navbar-back></app-navbar-back>
         
    
-            <div class="container">
-            <h2>Add Food</h2>
-            <div class="form-container">
-            <form [formGroup]="foodForm" (ngSubmit)="addFood()">
-              <div class="form-group">
-                <label>Name :</label>
-                <input type="text" formControlName="namefood" class="form-control">
-              </div>
-              <div class="form-group">
-                <label>Calories per serving :</label>
-                <input type="number" formControlName="calories_per_serving" class="form-control">
-              </div>
-              <div class="form-group">
-                <label>Protein per serving :</label>
-                <input type="number" formControlName="protein_per_serving" class="form-control">
-              </div>
-              <div class="form-group">
-                <label>Carbohydrates per serving :</label>
-                <input type="number" formControlName="carbohydrates_per_Serving" class="form-control">
-              </div>
-              <div class="form-group">
-                <label>Fat per serving :</label>
-                <input type="number" formControlName="fat_per_Serving" class="form-control">
-              </div>
-              <div class="form-group">
-                <label>Fiber per serving :</label>
-                <input type="number" formControlName="fiber_per_Serving" class="form-control">
-              </div>
-              <div class="form-group">
-                <label>Vitamins per serving :</label>
-                <input type="text" formControlName="vitamins_per_Serving" class="form-control">
-              </div>
-              <div class="form-group">
-                <label>Minerals per serving :</label>
-                <input type="number" formControlName="minerals_per_Serving" class="form-control">
-              </div>
-             
-              <button type="submit" class="btn btn-success">Add</button>
-            </form>
-        </div>
+       <!-- add-food.component.html -->
+<div class="container">
+  <h2>Add Food</h2>
+ 
+    <div class="form-container">
+      <label for="fileInput" class="file-label">Select Excel File:</label>
+      <input id="fileInput" type="file" (change)="onFileSelected($event)">
+      <span *ngIf="selectedFileName">{{ selectedFileName }}</span>
+    </div>
+  </div>
+  
+
+      </div>        
     </div>
 
-      </div></div>
-    </div>
+      </div>
+  
     <app-footer-back></app-footer-back>
 
 </html>
+

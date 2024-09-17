@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <div class="layout-wrapper layout-content-navbar">
+    <div class="layout-container">
+      <app-sidebar-back></app-sidebar-back>
+      <div class="layout-page">
+        <app-navbar-back></app-navbar-back>
+<div class="container">
+    <h1>Edit Availability</h1>
+    <form (ngSubmit)="updateAvailability()">
+      <div class="form-group">
+        <label for="date">Date</label>
+        <input type="date" class="form-control" id="date" [(ngModel)]="availability.date_av" name="date_av" required>
+      </div>
+      <div class="form-group">
+        <label for="startTime">Start Time</label>
+        <input type="time" class="form-control" id="startTime" [(ngModel)]="availability.startTime" name="startTime" required>
+      </div>
+      <div class="form-group">
+        <label for="endTime">End Time</label>
+        <input type="time" class="form-control" id="endTime" [(ngModel)]="availability.endTime" name="endTime" required>
+      </div>
+     
+      <!-- You can add more fields here if needed -->
+      <button type="submit" class="btn btn-primary">update Availability</button>
+    </form>
+  </div>
+</div></div>
+</div>
+<app-footer-back></app-footer-back>
+
+</html>

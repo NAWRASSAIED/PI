@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>List of Appointments</title>
+</head>
+
+<body>
+  <div class="layout-wrapper layout-content-navbar">
+    <div class="layout-container">
+      <app-sidebar-back></app-sidebar-back>
+      <div class="layout-page">
+        <app-navbar-back></app-navbar-back>
+    <div class="container">
+    
+    <div *ngIf="appointments.length === 0">
+      <p>No appointments found.</p>
+    </div>
+    <div *ngFor="let appointment of appointments">
+      <div class="card">
+        <div class="card-body">
+          
+          <p class="card-text">Nutritionist: {{ appointment.nutritionist }}</p>
+          <p class="card-text">Date: {{ appointment.date_app }}</p>
+          <p class="card-text">Time: {{ appointment.time }}</p>
+          <p class="card-text">Client: {{ appointment.client }}</p>
+        
+          <button class="btn btn-danger" (click)="deleteAppointment(appointment.appointmentId)">Delete</button>
+   
+          <!-- Add more appointment details here as needed -->
+        </div>
+      </div>
+    </div>
+  </div>
+ </div>
+ </div>
+ </div>
+   
+  <app-footer-back></app-footer-back>
+  
+
+</body>
+
+</html>

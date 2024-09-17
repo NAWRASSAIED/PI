@@ -9,6 +9,7 @@ import { NotificationService } from '../services/notification.service';
 import { NutritionalGoalService } from '../services/nutritional-goal.service';
 import { NutritionalGoal } from '../models/NutritionalGoal';
 import { Subscription } from 'rxjs';
+import Chart from 'chart.js/auto';
 
 import { ActivatedRoute, Router } from '@angular/router'; // Importer Router pour la navigation
 import { DailyCalorieServiceService } from '../services/daily-calorie-service.service';
@@ -30,6 +31,8 @@ export class ListrackComponent implements OnInit {
   difference: number = 0;
   progressPercentage: number = 0;
   subscriptions: Subscription[] = [];
+  myChart!: Chart;
+
 
   constructor(
     private nutritionTrackingService: NutritionTrackingService,
@@ -45,6 +48,7 @@ export class ListrackComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.createChart();
     this.updateProgressPercentage();
     this.searchForm = this.formBuilder.group({
       keyword: ['']
@@ -147,6 +151,7 @@ export class ListrackComponent implements OnInit {
                     this.dailyCalorieService.setDailyCalorieGoal(dailyCalorieGoal); // Mettez à jour la valeur de dailyCalorieGoal dans le service
                     this.dailyCalorieGoal = dailyCalorieGoal;
                     this.updateProgressPercentage();
+                    this.createChart();
                   },
                   (error: any) => {
                     console.error('Error calculating daily calorie goal:', error);
@@ -193,20 +198,23 @@ export class ListrackComponent implements OnInit {
           this.nutritionTrackingService.addNutritionTracking(nutritionTrackingData).subscribe(
             (response: NutritionTracking) => {
               console.log('Nutrition tracking added successfully:', response);
+              // Ajouter le suivi nutritionnel nouvellement ajouté à la liste existante
+              this.nutritionTrackingList.unshift(response);
+              // Réinitialiser le formulaire d'ajout de suivi nutritionnel
               this.addNutritionTrackingForm.reset();
               this.consumedFoods = [];
-              this.router.navigate(['/listtrack', this.userId]);
+              // Fermer le modal
+              this.closeNutritionTrackingModal();
+              
+              // Mettre à jour la progression et recréer le graphique
+              this.updateProgressPercentage();
+              this.createChart();
             },
             (error: any) => {
               console.error('Error adding nutrition tracking:', error);
             }
           );
-        } else {
-          console.error('ID of nutritional goal is undefined.');
-        }
-      } else {
-        console.error('User ID is not available.');
-      }
+        }}    
     } else {
       console.error('Invalid form data. Cannot add nutrition tracking.');
     }
@@ -270,7 +278,67 @@ export class ListrackComponent implements OnInit {
       tracking.dateNut.toLowerCase().includes(keyword) || tracking.total_calories
     );
   }
+
+  createChart(): void {
+    console.log('Nutrition tracking list:', this.nutritionTrackingList);
+    console.log('Daily calorie goal:', this.dailyCalorieGoal);
+  
+    const ctx = document.getElementById('myChart') as HTMLCanvasElement;
+  
+    if (this.myChart) {
+      this.myChart.destroy();
+    }
+  
+    const sortedTrackingList = this.nutritionTrackingList.sort((a, b) => {
+      const dateA = new Date(a.dateNut);
+      const dateB = new Date(b.dateNut);
+      return dateA.getTime() - dateB.getTime();
+    });
+
+    const dates = sortedTrackingList.map(tracking => tracking.dateNut);
+    const achievements = sortedTrackingList.map(tracking => {
+      const percentage = (tracking.total_calories / this.dailyCalorieGoal) * 100;
+      return percentage >= 100 ? 100 : percentage;
+    });
+
+    this.myChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: dates,
+        datasets: [{
+          label: 'Progression',
+          data: achievements,
+          fill: false,
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 2,
+          pointBackgroundColor: achievements.map(achievement => achievement === 100 ? 'green' : 'red'),
+          pointRadius: 5
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            min: 0,
+            max: 100,
+            ticks: {
+              stepSize: 25
+            }
+          }
+        }
+      }
+    });
+  }
 }
+
+
+
+
+
+
+
+
+
+
 
 
 

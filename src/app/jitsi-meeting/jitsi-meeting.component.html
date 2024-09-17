@@ -1,0 +1,22 @@
+<div id="jitsi-iframe"></div>
+
+<!-- Contrôles personnalisés -->
+<div class="custom-controls">
+    <button (click)="executeCommand('toggleAudio')" title="Mute / Unmute">
+        <i class="fas fa-microphone" [ngClass]="{'fa-microphone-slash': isAudioMuted}"></i>
+    </button>
+    <button (click)="executeCommand('hangup')" title="Leave">
+        <i class="fas fa-phone-slash"></i>
+    </button>
+    <button (click)="executeCommand('toggleVideo')" title="Start / Stop camera">
+        <i class="fas fa-video" [ngClass]="{'fa-video-slash': isVideoMuted}"></i>
+    </button>
+    <!-- Button for sharing screen -->
+    <button (click)="executeCommand('toggleShareScreen')" title="Share your screen">
+        <i class="fas fa-film"></i>
+    </button>
+</div>
+
+
+
+

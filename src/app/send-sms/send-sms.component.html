@@ -1,0 +1,7 @@
+<div>
+    <input type="text" placeholder="Recipient Phone Number" [(ngModel)]="recipientPhoneNumber">
+    <textarea placeholder="Message" [(ngModel)]="message"></textarea>
+    <button (click)="sendSms(recipientPhoneNumber, message)">Send SMS</button>
+  </div>
+  
+  

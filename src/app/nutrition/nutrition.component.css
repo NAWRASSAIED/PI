@@ -18,11 +18,6 @@ button {
     background-color:#9b1111; /* Couleur de fond au survol */
   }
   
-  button:focus {
-    outline: none;
-  }
-  
-  /* Pour un style plus flat */
   button.flat {
     background-color: transparent;
     color: #9b1111;
@@ -32,4 +27,64 @@ button {
   button.flat:hover {
     background-color: rgba(76, 175, 80, 0.1);
   }
+  notification-text {
+    margin-right: 200px;
+    margin-bottom: 20px;
+    text-align: right;
+    font-family: 'Brush Script MT', cursive;
+    font-size: 35px;
+  }
+  
+  .notification-bar {
+    position: fixed;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    background-color: sandybrown;
+    width: 50px;
+    height: auto; /* Modification de la hauteur en "auto" */
+    border-left: 1px solid #dddddd;
+  }
+  
+  .notification-buttons-container {
+    display: flex;
+    flex-direction: column; /* Alignement vertical des boutons */
+  }
+  
+  .notification-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 50px;
+    border: none;
+    background-color: sandybrown;
+    cursor: pointer;
+    outline: none;
+    padding: 6px 0; /* Ajout de padding pour l'espace entre les boutons */
+  }
+  
+  .notification-button img {
+    margin-right: 5px; /* Ajout de marge entre l'image et le texte */
+  }
+  
+  .tooltip {
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 30%;
+    transform: translateX(-50%);
+    background-color: #000;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+  
+  .notification-button:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+  }
+  
   

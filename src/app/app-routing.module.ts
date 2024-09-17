@@ -15,6 +15,15 @@ import { EditNutritionTrackingComponent } from './edit-nutrition-tracking/edit-n
 import { ListrackComponent } from './listrack/listrack.component';
 import { AllTemplateFrontComponent } from './FrontOffice/all-template-front/all-template-front.component';
 import { NutritionComponent } from './nutrition/nutrition.component';
+import { AddAppointmentComponent } from './add-appointment/add-appointment.component';
+import { UpdateAppointmentComponent } from './update-appointment/update-appointment.component';
+import { ListAppointmentComponent } from './list-appointment/list-appointment.component';
+import { AddAvailabilityComponent } from './add-availability/add-availability.component';
+import { ListAvailabilityComponent } from './list-availability/list-availability.component';
+import { UpdateAvailabilityComponent } from './update-availability/update-availability.component';
+import { NutritionnistComponent } from './nutritionnist/nutritionnist.component';
+import { JitsiComponent } from './jitsi-meeting/jitsi-meeting.component';
+import { SendSmsComponent } from './send-sms/send-sms.component';
  // Importez votre composant FoodComponent
 
 const routes: Routes = [
@@ -31,7 +40,16 @@ const routes: Routes = [
   {path:'showtrack', component:ListNutritionTrackingComponent},
   { path: 'updateNutritiontrack/:id', component: EditNutritionTrackingComponent },
   {path:'listtrack/:userId',component:ListrackComponent},
-  {path:'nutrition',component:NutritionComponent}
+  {path:'nutrition',component:NutritionComponent},
+  {path:'addAppointment/:userId',component:AddAppointmentComponent},
+  {path:'updateAppointment',component:UpdateAppointmentComponent},
+  {path:'listofapp',component:ListAppointmentComponent},
+  {path:'addavailability',component:AddAvailabilityComponent},
+  {path:'listav',component:ListAvailabilityComponent},
+  {path:'updateAvailability',component:UpdateAvailabilityComponent},
+  {path:'listnut',component:NutritionnistComponent},
+  {path:'jitsi',component:JitsiComponent},
+  {path:'sms',component:SendSmsComponent}
 
 ];
 

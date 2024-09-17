@@ -1,0 +1,107 @@
+/* Ajoutez vos styles personnalisés ici */
+/* Dans votre fichier CSS global ou dans le fichier de style du composant */
+@import '~@fortawesome/fontawesome-free/css/all.css';
+/* CSS for the success-snackbar class */
+
+
+/* Style pour le titre */
+h1 {
+    text-align: center;
+    margin-top: 150px;
+    margin-bottom: 50px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color:grey;
+  }
+  /* CSS for the success-snackbar class */
+
+
+  /* Style pour la carte des nutritionnistes */
+ /* Style des cartes */
+ .container {
+  
+  display: flex;
+  overflow-x: auto; /* Active le défilement horizontal */
+  margin-top: 100px;
+  margin-bottom: 20px;
+  width: 1200px;
+  height: 300px; /* Prend la largeur totale disponible */
+  scrollbar-width: none; /* Masque la largeur de la barre de défilement */
+  -ms-overflow-style: none; /* Masque la barre de défilement pour Internet Explorer */
+}
+
+.container::-webkit-scrollbar {
+  display: none; /* Masque la barre de défilement pour les navigateurs Webkit */
+}
+.container::-webkit-scrollbar-track {
+  background: transparent; 
+  cursor: pointer;
+}
+
+.container::-webkit-scrollbar-thumb {
+  background: #888; 
+  border-radius: 2px; 
+  
+}
+
+.row {
+  display: flex;
+  flex-wrap: nowrap; /* Empêche le retour à la ligne */
+}
+
+.col-md-4 {
+  flex: 0 0 auto; /* Évite que les colonnes ne rétrécissent ou ne grandissent */
+}
+
+.card {
+  margin-top: 20px;
+  width: 300px;
+  height: 230px;
+  background-color: transparent;
+  border: 2px solid white;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-right: 20px;
+ border-color:#9b1111 ;
+}
+.col-md-12{margin-top: 100px;
+width: 300px;}
+.card-body {
+  padding: 20px;
+}
+
+.star-rating {
+  color: #ffd700;
+  font-size: 30px;
+}
+
+.btn-primary {
+  background-color: #9b1111;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+
+/* Style de l'icône devant le nom de la ville */
+.location-icon {
+  width: 20px; /* Ajustez la taille de l'icône selon vos besoins */
+  height: auto;
+  margin-right: 5px; /* Ajoutez un espacement à droite pour séparer l'icône du texte */
+}
+
+
+  /* Style pour le bouton "Add Appointment" */
+  .btn-primary {
+    width: 100%; /* Bouton prend la largeur complète de la carte */
+  }
+  
+
+
+

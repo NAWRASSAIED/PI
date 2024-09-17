@@ -68,16 +68,45 @@
           <h4>Daily Calorie Goal: {{ dailyCalorieGoal }}</h4>
         </div>
 
-        <div *ngIf="consumedFoods.length > 0"> 
-          <h4>Remaining calories: {{ difference }}</h4>
-        </div>
-           <div>
-        <button type="submit"  class="btn btn-primary">Submit</button>
-         </div>
        
+        <div class="progress-circle-container">
+    
+            
+         
+       
+            
+              <svg width="200" height="200">
+                  <!-- Cercle gris représentant les calories restantes -->
+                  <circle cx="100" cy="100" r="80" fill="none" stroke="#f3f3f3" stroke-width="16"></circle>
+                  <!-- Cercle coloré représentant les calories consommées -->
+                  <circle cx="100" cy="100" r="80" fill="none" [attr.stroke]="calculateCircleColor()" stroke-width="16" [attr.stroke-dasharray]="calculateDashArray()" [attr.stroke-dashoffset]="calculateDashOffset()"></circle>
+                  <!-- Texte affichant "Remaining" et le nombre de calories -->
+                  <text x="100" y="90" text-anchor="middle" alignment-baseline="middle" fill="#000000" font-size="16">Remaining</text>
+                  <text x="100" y="120" text-anchor="middle" alignment-baseline="middle" fill="#000000" font-size="28">{{ difference }}</text>
+                  <text x="100" y="150" text-anchor="middle" alignment-baseline="middle" fill="#000000" font-size="16">Calories</text>
+              </svg>
+              <!-- Texte affichant le pourcentage de calories consommées à côté du cercle -->
+              <div class="percentage">{{ calculateProgressPercentage() }}%</div>
+          </div>
+          
+          
+          
+           
+            
+          
+          
+        
+      
+      
+        
+        
+    
+        <button type="submit"  class="btn btn-primary">Submit</button>
+       
+   
       </form>
      </div>
-     </div>
+    </div>   
         <!-- Conteneur de l'icône des suggestions de nourriture avec animation -->
    
         <app-footer-front></app-footer-front>

@@ -15,6 +15,7 @@
 
 <!-- Template Main CSS File -->
 <link href="/assets/FrontOfficeAssets/css/main.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 <!-- Navbar -->
 <app-nav-bar-front></app-nav-bar-front>
@@ -27,9 +28,21 @@
         <!-- Ajoutez d'autres champs de recherche si nécessaire -->
     </div>
 
+   
+    <div class="table-and-chart-container">
+        <div class="table-container">
     <!-- Tableau de suivi -->
     <table class="table">
         <thead>
+            <tr>
+                <td colspan="3" class="text-end"> 
+                    <button type="button" class="btn btn-primary" (click)="openNutritionTrackingModal()">
+                        <i class="fas fa-plus"></i> <!-- Ajout de l'icône d'ajout -->
+                        Add Nutrition Tracking
+                    </button>
+                </td>
+            </tr>
+            
             <tr>
                 <th>Date</th>
                 <th>Total Calories</th>
@@ -52,30 +65,14 @@
                     </button>
                 </td>
             </tr>
-            <tr>
-                <td colspan="3" class="text-end"> <!-- Utilisation de la classe text-end pour aligner le bouton à droite -->
-                    <button type="button" class="btn btn-primary" (click)="openNutritionTrackingModal()">
-                        Add Nutrition Tracking
-                    </button>
-                </td>
-            </tr>
+           
         </tbody>
     </table>
-    <div class="progress">
-        
-            <div class="progress-bar" role="progressbar" [style.width.%]="progressPercentage">
-                {{ progressPercentage }}%
-            </div>
-            <div *ngIf="progressPercentage >= 100" class="alert alert-success" role="alert">
-                Congratulations! You are on track to achieve your nutritional goal.
-            </div>
-            <div *ngIf="progressPercentage < 100 && progressPercentage >= 80" class="alert alert-warning" role="alert">
-                You're making good progress toward your nutritional goal. Keep it up!
-            </div>
-            <div *ngIf="progressPercentage < 80" class="alert alert-danger" role="alert">
-                Warning! You may need to reconsider your food choices to reach your nutritional goal.
-            </div>
-        </div>
+    </div>
+    <div class="chart-container">
+    <canvas id="myChart"></canvas></div>
+</div>
+   
         
     <app-footer-front></app-footer-front>
 </div>
@@ -100,7 +97,7 @@
                         </div>
                         <div class="form-group">
                             <label for="quantity">Quantity:</label>
-                            <input type="number" formControlName="quantity" id="quantity" required>
+                            <input type="number" formControlName="quantity" id="quantity" required  class="form-control">
                         </div>
                         <div class="form-group">
                             <label for="caloriesPerServing">Calories per Serving</label>
@@ -139,6 +136,9 @@
     </div>
 </div>
 
+
+
+  
 
 
   

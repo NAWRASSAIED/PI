@@ -55,5 +55,65 @@ h2 {
     /* Styles pour positionner le composant footer en bas de la page */
    margin: 50px;
 }
+.drop-zone {
+    border: 2px dashed #ccc;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .drop-zone p {
+    margin: 0;
+  }
+  
+  .drop-zone.drag-over {
+    background-color: #f0f0f0;
+  }
+ 
+  
+ 
+  
+  .file-label {
+    font-size: 18px;
+    background-color: #4cec4c;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .file-label:hover {
+    background-color: #4cec4c;
+  }
+  
+  input[type="file"] {
+    display: none;
+  }
+    
+  .alert {
+    padding: 15px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    margin-bottom: 20px;
+  }
+  
+  .alert-success {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+  }
+  
+  .alert-error {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+  }
+  
+  .alert-warning {
+    color: #8a6d3b;
+    background-color: #fcf8e3;
+    border-color: #faebcc;
+  }
+  
 
 

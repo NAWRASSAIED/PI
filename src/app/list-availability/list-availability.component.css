@@ -1,0 +1,45 @@
+/* list-availabilities.component.css */
+
+/* Style pour le titre */
+h1 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+    margin-top: 50px;
+    margin-left: 500px;
+  }
+  
+  /* Style pour le formulaire de filtre */
+  .filter-form {
+    margin-bottom: 20px;
+    margin-top: 20px;
+    margin-left: 400px;
+   
+  
+    
+  }
+.mat-elevation-z8{
+  width: 1000px;
+    margin-left: 400px;
+}
+  
+  /* Style pour les cellules du tableau */
+  td, th {
+    padding: 10px;
+  }
+  
+  /* Style pour les boutons d'action */
+  button {
+    padding: 5px 10px;
+
+    border-radius: 4px;
+    cursor: pointer;
+    border-color: #e74c3c;
+  }
+  
+  button:hover {
+    background-color: #e74c3c; /* Rouge */
+    color: #fff;
+  }
+  
+  /* Style pour le pied de page */

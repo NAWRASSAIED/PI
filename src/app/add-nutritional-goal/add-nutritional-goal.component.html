@@ -15,44 +15,79 @@
 
 <!-- Template Main CSS File -->
 <link href="/assets/FrontOfficeAssets/css/main.css" rel="stylesheet">
+
 <app-nav-bar-front></app-nav-bar-front>
-    <div class="container">  <h2>Add Nutritional Goal</h2>
-        <div class="for">
-          
-            <form [formGroup]="nutritionalGoalForm" (ngSubmit)="addNutritionalGoal()">
-                <div class="form-group">
-                    <label for="height">Height:</label>
-                    <input type="number" formControlName="height" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="weight">Weight:</label>
-                    <input type="number" formControlName="weight" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="goal">Goal:</label>
-                    <select formControlName="goal" class="form-control">
-                        <option *ngFor="let option of goalOptions" [value]="option">{{ option }}</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="weight_goal">Weight Goal:</label>
-                    <input type="number" formControlName="weight_goal" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="Duration">Duration (jours):</label>
-                    <input type="number" formControlName="Duration" class="form-control">
-                </div>
-                <button type="submit" class="btn btn-primary">Add Nutritional Goal</button>
-                <button type="button" (click)="cancelAdd()" class="btn btn-secondary">Cancel</button>
-            </form>
-        </div>
-    </div>
-    
-    
-    
+
+<div class="container">
+  <h2>Add Nutritional Goal</h2>
+  <div class="for">
+   
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" [style.width]="progressWidth" aria-valuemin="1" [attr.aria-valuemax]="totalSteps"></div>
+
+
+      </div>
+        <form [formGroup]="nutritionalGoalForm" (ngSubmit)="addNutritionalGoal()">
+          <div *ngIf="currentStep === 1">
+            <h3>Step 1: Enter Height</h3>
+            <div class="form-group">
+              <label for="height">Height (cm):</label>
+              <input type="number" formControlName="height" class="form-control" placeholder="Enter height">
+            </div>
+            <button type="button" (click)="nextStep()" class="btn btn-primary">Next</button>
+          </div>
+      
+          <div *ngIf="currentStep === 2">
+            <h3>Step 2: Enter Weight</h3>
+            <div class="form-group">
+              <label for="weight">Weight (kg):</label>
+              <input type="number" formControlName="weight" class="form-control" placeholder="Enter weight">
+            </div>
+            <button type="button" (click)="prevStep()" class="btn btn-secondary">Previous</button>
+            <button type="button" (click)="nextStep()" class="btn btn-primary">Next</button>
+          </div>
+      
+          <div *ngIf="currentStep === 3">
+            <h3>Step 3: Select Goal</h3>
+            <div class="form-group">
+              <label for="goal">Goal:</label>
+              <select formControlName="goal" class="form-control">
+                <option *ngFor="let option of goalOptions" [value]="option">{{ option }}</option>
+              </select>
+            </div>
+            <button type="button" (click)="prevStep()" class="btn btn-secondary">Previous</button>
+            <button type="button" (click)="nextStep()" class="btn btn-primary">Next</button>
+          </div>
+      
+          <div *ngIf="currentStep === 4">
+            <h3>Step 4: Enter Weight Goal</h3>
+            <div class="form-group">
+              <label for="weight_goal">Weight Goal (kg):</label>
+              <input type="number" formControlName="weight_goal" class="form-control" placeholder="Enter weight goal">
+            </div>
+            <button type="button" (click)="prevStep()" class="btn btn-secondary">Previous</button>
+            <button type="button" (click)="nextStep()" class="btn btn-primary">Next</button>
+          </div>
+      
+          <div *ngIf="currentStep === 5">
+            <h3>Step 5: Enter Duration</h3>
+            <div class="form-group">
+              <label for="Duration">Duration (days):</label>
+              <input type="number" formControlName="Duration" class="form-control" placeholder="Enter duration">
+            </div>
+            <button type="button" (click)="prevStep()" class="btn btn-secondary">Previous</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </form>
+      </div>
+      
+  </div>
+
+
 <app-footer-front></app-footer-front>
+
 <script src="/assets/FrontOfficeAssets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="/assets/FrontOfficeAssets/vendor/aos\aos.js"></script>
+<script src="/assets/FrontOfficeAssets/vendor/aos/aos.js"></script>
 <script src="/assets/FrontOfficeAssets/vendor/glightbox/js/glightbox.min.js"></script>
 <script src="/assets/FrontOfficeAssets/vendor/purecounter/purecounter_vanilla.js"></script>
 <script src="/assets/FrontOfficeAssets/vendor/swiper/swiper-bundle.min.js"></script>

@@ -1,0 +1,170 @@
+<link href="/assets/FrontOfficeAssets/img/favicon.png" rel="icon">
+<link href="/assets/FrontOfficeAssets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Amatic+SC:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+
+<!-- Vendor CSS Files -->
+<link href="/assets/FrontOfficeAssets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="/assets/FrontOfficeAssets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+<link href="/assets/FrontOfficeAssets/vendor/aos/aos.css" rel="stylesheet">
+<link href="/assets/FrontOfficeAssets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+<link href="/assets/FrontOfficeAssets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+
+<!-- Template Main CSS File -->
+<link href="/assets/FrontOfficeAssets/css/main.css" rel="stylesheet">
+<app-nav-bar-front></app-nav-bar-front>
+
+
+
+
+<div class="layout-wrapper layout-content-navbar">
+  <div class="container">
+    <h1>Add Appointment</h1>
+    <div id="calendar-container">
+      <div id="cal-buttons">
+        <div id="cal-date-nav-buttons">
+          <button id="previous" mwlCalendarPreviousView [(viewDate)]="viewDate" [view]="view">Previous</button>
+          <button id="today" mwlCalendarToday [(viewDate)]="viewDate">Today</button>
+          <button id="next" mwlCalendarNextView [(viewDate)]="viewDate" [view]="view">Next</button>
+        </div>
+        <div id="cal-date-field">{{ viewDate | calendarDate: (view + 'ViewTitle') : 'en'}}</div>
+        <div id="cal-view-nav-buttons">
+          <button id="month" (click)="setView(CalendarView.Month)" [class.selected]="view === CalendarView.Month">Month</button>
+          <button id="week" (click)="setView(CalendarView.Week)" [class.selected]="view === CalendarView.Week">Week</button>
+          <button id="day" (click)="setView(CalendarView.Day)" [class.selected]="view === CalendarView.Day">Day</button>
+        </div>
+      </div>
+     
+      <div [ngSwitch]="view">
+        
+        <mwl-calendar-month-view
+        *ngSwitchCase="CalendarView.Month"
+        [viewDate]="viewDate"
+        [events]="events"
+        [activeDayIsOpen]="activeDayIsOpen"
+        (dayClicked)="dayClicked( $event.day)">
+        
+       <!-- Dans votre modèle HTML -->
+<ng-template #mwlCalendarMonthCell let-date="date" let-dayEvents="dayEvents">
+  <div id="cal-date-field">{{ viewDate | date: 'dd/MM/yyyy' }}</div>
+  <div class="cal-cell-top">
+    <span class="cal-day-number">{{ date.day }}</span>
+  </div>
+  <div class="cal-events" [ngClass]="{ 'available': dayModifier(date) === 'cal-day-available', 'not-available': dayModifier(date) !== 'cal-day-available' }">
+    <div class="cal-event" *ngFor="let event of dayEvents" [style.backgroundColor]="event.color?.primary">
+      <!-- Titre de l'événement -->
+      <p>{{ event.title }}</p>
+    
+<div *ngFor="let event of events">
+  <!-- Check if the event is a meeting appointment -->
+  <div *ngIf="isMeetingAppointment(event)">
+    <!-- Add a click event to open the modal when the meeting link is clicked -->
+    <a href="#" (click)="openRatingModal(event)">Join meeting</a>
+  </div>
+</div>
+
+
+
+
+
+      <!-- Ajoutez ceci à l'endroit où vous souhaitez afficher le composant de notation -->
+    
+      
+    </div>
+  </div>
+</ng-template>
+
+      </mwl-calendar-month-view>
+      
+      
+        <mwl-calendar-week-view
+          *ngSwitchCase="CalendarView.Week"
+          [viewDate]="viewDate"
+          [events]="events">
+        </mwl-calendar-week-view>
+        <mwl-calendar-day-view
+          *ngSwitchCase="CalendarView.Day"
+          [viewDate]="viewDate"
+          [events]="events">
+        </mwl-calendar-day-view>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal" [style.display]="modalOpen ? 'block' : 'none'">
+  <div class="modal-content">
+    <span class="close" (click)="closeModal()">&times;</span>
+    <h2>Add Appointment</h2>
+    <form [formGroup]="appointmentForm">
+      <label>Date:</label>
+      <input type="text" formControlName="date">
+      <label>Time:</label>
+      
+      <select class="form-control" id="time" formControlName="time" [(ngModel)]="selectedTime" *ngIf="timeSlots">
+        <ng-container *ngFor="let timeSlot of timeSlots">
+          <option [value]="timeSlot">{{ timeSlot }}</option>
+        </ng-container>
+      </select>
+      
+  
+      
+      <br><br>
+      <button (click)="createAppointment()">Add</button>
+    </form>
+  </div>
+</div>
+<button id="gg" (click)="openRatingModal(clickedEvent!)">
+  <i class="fas fa-star">Rate Your experince with your nutritionist</i> <i class="fas fa-star"></i>
+</button>
+
+
+
+
+
+
+<!-- Rating Modal -->
+<!-- Rating Modal -->
+<div class="modal" [style.display]="ratingModalOpen ? 'block' : 'none'">
+  <div class="modal-content">
+    <span class="close" (click)="closeRatingModal()">&times;</span>
+    <h2>Rate Your Experience</h2>
+    <p>Please rate your experience with the nutritionist:</p>
+    <!-- Utilisez le composant de notation ici -->
+    <app-rating (ratingChange)="onRatingChange($event)"></app-rating>
+
+
+
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<app-footer-front></app-footer-front>
+
+<!-- Scripts -->
+<script src="/assets/FrontOfficeAssets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/FrontOfficeAssets/vendor/aos\aos.js"></script>
+<script src="/assets/FrontOfficeAssets/vendor/glightbox/js/glightbox.min.js"></script>
+<script src="/assets/FrontOfficeAssets/vendor/purecounter/purecounter_vanilla.js"></script>
+<script src="/assets/FrontOfficeAssets/vendor/swiper/swiper-bundle.min.js"></script>
+<script src="/assets/FrontOfficeAssets/vendor/php-email-form/validate.js"></script>
+<script src="/assets/FrontOfficeAssets/js/main.js"></script>
+

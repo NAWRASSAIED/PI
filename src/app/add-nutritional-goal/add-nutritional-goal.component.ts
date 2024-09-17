@@ -14,7 +14,12 @@ import { NutritionTrackingService } from '../services/nutrition-tracking.service
 })
 export class AddNutritionalGoalComponent implements OnInit {
   nutritionalGoalForm!: FormGroup;
+  currentStep: number = 1; // Variable pour suivre l'étape actuelle du formulaire
   goalOptions: string[] = ['Lose weight', 'Maintain weight', 'Gain weight'];
+  progressWidth: string = '25%'; // Initialiser avec une valeur par défaut
+  totalSteps: number = 5; // Remplacez 4 par le nombre total d'étapes de votre formulaire
+
+
 
   constructor(
     private fb: FormBuilder,
@@ -35,20 +40,30 @@ export class AddNutritionalGoalComponent implements OnInit {
     });
   }
 
+  // Fonction pour avancer à l'étape suivante
+  nextStep(): void {
+    this.currentStep++;
+    this.updateProgressWidth();
+  }
+
+  // Fonction pour revenir à l'étape précédente
+  prevStep(): void {
+    this.currentStep--;
+    this.updateProgressWidth();
+  }
+
   addNutritionalGoal(): void {
     if (this.nutritionalGoalForm.valid) {
       const { height, weight, weight_goal, Duration, goal } = this.nutritionalGoalForm.value;
 
-      // Récupérer l'ID de l'utilisateur à partir du service d'utilisateur
       const userId = this.userService.getUserId();
 
-      // Utiliser l'ID de l'utilisateur dans la création de l'objectif nutritionnel
       if (userId) {
         this.nutritionalGoalService.calculateDailyCalorieGoal(weight, height, goal, Duration).subscribe(
           (dailyCalorieGoal: number) => {
             const newNutritionalGoal: NutritionalGoal = {
               idNGoal: 0,
-              userId: userId, // Utiliser l'ID de l'utilisateur
+              userId: userId,
               duration: Duration,
               height,
               weight,
@@ -62,7 +77,6 @@ export class AddNutritionalGoalComponent implements OnInit {
                 console.log('Nutritional Goal added successfully:', addedGoal);
                 this.dailyCalorieService.setDailyCalorieGoal(dailyCalorieGoal);
 
-                // Après avoir ajouté l'objectif nutritionnel, naviguer vers la page de suivi associée
                 this.router.navigate(['/addTracking', userId]);
               },
               (error) => {
@@ -81,7 +95,9 @@ export class AddNutritionalGoalComponent implements OnInit {
       alert('Please fill out all required fields and ensure that input values are valid.');
     }
   }
-
+  private updateProgressWidth(): void {
+    this.progressWidth = (this.currentStep / this.totalSteps * 100) + '%';
+  }
   cancelAdd(): void {
     this.nutritionalGoalForm.reset();
   }

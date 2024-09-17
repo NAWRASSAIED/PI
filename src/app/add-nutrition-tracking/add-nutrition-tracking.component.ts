@@ -43,6 +43,7 @@ export class NutritionTrackComponent implements OnInit {
   notificationDotVisible: boolean = true;
   notificationReceived: boolean = false;
   showSuggestions = 'hidden';
+ 
   nutritionalgoal: NutritionalGoal = {
     goal: '',
     idNGoal: 0,
@@ -51,6 +52,8 @@ export class NutritionTrackComponent implements OnInit {
     weight: 0,
     weight_goal: 0
   };
+  progressPercentage: number =0;
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -65,6 +68,10 @@ export class NutritionTrackComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    setInterval(() => {
+      this.progressPercentage = (this.progressPercentage + 10) % 100; // Exemple d'incrémentation de 10% toutes les quelques secondes
+    }, 2000);
+   
     this.notificationReceived = true;
     this.userId = this.route.snapshot.params['userId'];
     this.addNutritionTrackingForm = this.formBuilder.group({
@@ -200,7 +207,7 @@ export class NutritionTrackComponent implements OnInit {
   calculateDifference(): void {
     const totalCaloriesConsumed = this.consumedFoods.reduce((acc, food) => acc + food.calories_per_serving, 0);
     this.difference = this.dailyCalorieGoal - totalCaloriesConsumed;
-
+    
     if (this.difference < 0) {
       this.notificationService.showNotification('Attention: You have exceeded your daily calorie limit !', 'Fermer', 5000, ['alert-snackbar']);
     }
@@ -231,6 +238,67 @@ export class NutritionTrackComponent implements OnInit {
       }
     }
   }
+  calculateProgressPercentage(): number {
+    const totalCaloriesConsumed = this.consumedFoods.reduce((acc, food) => acc + food.calories_per_serving, 0);
+    if (this.dailyCalorieGoal !== 0) {
+        return Math.floor((totalCaloriesConsumed / this.dailyCalorieGoal) * 100);
+    } else {
+        return 0; // Ou toute autre valeur par défaut que vous préférez si dailyCalorieGoal est égal à zéro
+    }
+}
+
+  
+  calculateRemainingCircleColor(): string {
+    const percentageConsumed = this.calculateProgressPercentage();
+    const percentageRemaining = 100 - percentageConsumed;
+    if (percentageRemaining >= 70) {
+        return '#ff8c00'; // Orange si plus de 70% restants
+    } else if (percentageRemaining >= 50) {
+        return '#ffff00'; // Jaune si plus de 50% restants
+    } else {
+        return '#00ff00'; // Vert si moins de 50% restants
+    }
+}
+
+
+  
+  calculateCircleColor(): string {
+    const percentageConsumed = this.calculateProgressPercentage();
+    if (percentageConsumed >= 100) {
+        return '#ff0000'; // Rouge si 100% ou plus consommés
+    } else if (percentageConsumed >= 70) {
+        return '#ff8c00'; // Orange si plus de 70% consommés
+    } else if (percentageConsumed >= 50) {
+        return '#ffff00'; // Jaune si plus de 50% consommés
+    } else {
+        return '#00ff00'; // Vert si moins de 50% consommés
+    }
+}
+
+calculateStrokeColor(): string {
+  // Déterminez la couleur en fonction du pourcentage de calories consommées
+  // Par exemple, utilisez du rouge pour représenter un pourcentage élevé de calories consommées
+  if (this.calculateProgressPercentage() >= 70) {
+      return '#ff0000'; // Rouge
+  } else {
+      return '#007bff'; // Bleu par défaut
+  }
+}
+
+calculateDashArray(): string {
+  // Calculez la taille de la zone de tiret du trait en fonction du pourcentage de calories consommées
+  const circumference = 2 * Math.PI * 40; // Circonférence du cercle
+  return `${circumference}`;
+}
+
+calculateDashOffset(): string {
+  // Calculez le décalage de tiret du trait en fonction du pourcentage de calories consommées
+  const percentage = this.calculateProgressPercentage();
+  const circumference = 2 * Math.PI * 40; // Circonférence du cercle
+  const offset = circumference - (circumference * percentage) / 100;
+  return `${offset}`;
+}
+
   
 
   receiveNotification(): void {
@@ -241,7 +309,6 @@ export class NutritionTrackComponent implements OnInit {
     this.showSuggestions = 'hidden';
   }
 }
-
 
 
 

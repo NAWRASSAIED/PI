@@ -1,0 +1,84 @@
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
+  .card {
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-body {
+    padding: 15px;
+  }
+  
+  .card-title {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+  
+  .card-text {
+    margin-bottom: 5px;
+  }
+  
+  .layout-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  .layout-container {
+    flex: 1;
+    display: flex;
+  }
+  
+  .layout-page {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .app-footer-back {
+    margin-top: auto;
+  }
+  
+
+
+.button-container {
+  text-align: right; /* Alignement du texte à droite */
+  margin-bottom: 20px; /* Espacement en bas du bouton */
+  margin-right: 150px;
+}
+
+.button-container {
+  text-align: right; /* Alignement du texte à droite */
+  margin-bottom: 20px; /* Espacement en bas du bouton */
+}
+
+.button-container button {
+  background-color: #28a745; /* Utilisation de la même couleur de fond que le bouton du formulaire */
+  color: #fff; /* Couleur du texte du bouton */
+  border: none; /* Supprimer la bordure */
+  padding: 10px 20px; /* Espacement interne du bouton */
+  border-radius: 5px; /* Coins arrondis */
+  cursor: pointer; /* Curseur pointeur au survol */
+  transition: background-color 0.3s ease;
+  margin-left: 950px; 
+  margin-top: 10px;
+  width: 150px;/* Transition fluide de la couleur de fond */
+}
+
+.button-container button:hover {
+  background-color: #218838; /* Légèrement plus foncé au survol pour indiquer l'interaction */
+}
+.search-field{
+  margin-left: 350px;
+  
+}
